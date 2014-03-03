@@ -17,6 +17,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import javax.swing.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.net.Socket;
 
 public class GraphClient extends JPanel {
 
@@ -48,16 +53,49 @@ public class GraphClient extends JPanel {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
+        /*EventQueue.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                JFrame f = new JFrame();
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.add(new GraphClient());
-                f.pack();
-                f.setVisible(true);
+         @Override
+         public void run() {
+         JFrame f = new JFrame();
+         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         f.add(new GraphClient());
+         f.pack();
+         f.setVisible(true);
+         }
+         });*/
+        int portNumber = 2233;
+        String hostName = "147.32.84.225";
+        short[] readA;
+        short[] readB;
+        short[] readC;
+        short[] readD;
+        int length = 1437020/5;
+        int count = 0;
+        try {
+            Socket clientSocket = new Socket(hostName, portNumber);
+
+            System.err.println("Otviram vstupy vystupy");
+
+            DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+
+            readB = new short[length];
+            count = 0;
+            try {
+            while (true) {
+                readB[count] = (short) (dis.readByte() & 0xFF);
+                //System.out.println(readB[count]);
+                count++;
             }
-        });
+             } catch (EOFException exc) {
+            }
+            dis.close();
+            System.err.println("Zaviram vstupy vystupy");
+
+            clientSocket.close();
+        } catch (IOException exc) {
+            System.err.println("Umrel jsem na spojeni ->" + exc.getMessage());
+        }
+        System.out.println(count);
     }
 }
