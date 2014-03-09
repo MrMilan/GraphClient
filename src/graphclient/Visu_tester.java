@@ -23,8 +23,8 @@ public class Visu_tester {
     
     public static void main(String[] args)
     {
-        short[]pole=new short[1];
-        Jframe_vizu panel = new Jframe_vizu(pole);
+        InputFacade readedData = Client();
+        Jframe_vizu panel = new Jframe_vizu(readedData);
         JFrame f = new JFrame("Test");
         f.add(panel);//pridani na 4 panely
         //layout manager
@@ -35,15 +35,17 @@ public class Visu_tester {
      *
      * @return
      */
-    public static List<Short> Client ()
+    @SuppressWarnings("empty-statement")
+    public static InputFacade Client ()
     {
         
          int portNumber = 2233;
         String hostName = "147.32.84.225";
-        List <Short> readA = new ArrayList <> ();
-        List <Short> readB= new ArrayList <> ();
-        List <Short> readC= new ArrayList <> ();
-        List <Short> readD= new ArrayList <> ();
+        InputFacade readVector = new InputFacade();
+//        List <Short> readA = new ArrayList <> ();
+//        List <Short> readB= new ArrayList <> ();
+//        List <Short> readC= new ArrayList <> ();
+//        List <Short> readD= new ArrayList <> ();
 
         int count;
 //        
@@ -70,24 +72,23 @@ public class Visu_tester {
                 while (true) {
                     value = dis.readByte();
                     if (count % 5 == 1) {
-
-                        readA.add((short)(value & 0xFF));
+                        readVector.canalA.add((short)(value & 0xFF));
 //                        Vypis a pripocet kontrolniho countu
 //                        System.out.println(readA[countA]);
 //                        countA++;
                     }
                     if (count % 5 == 2) {
-                        readB.add((short) (value & 0xFF));
+                        readVector.canalB.add((short)(value & 0xFF));
                         //System.out.println(readB[countB]);
 //                        countB++;
                     }
                     if (count % 5 == 3) {
-                        readC.add((short) (value & 0xFF));
+                        readVector.canalC.add((short)(value & 0xFF));
                         //System.out.println(readC[countC]);
 //                        countC++;
                     }
                     if (count % 5 == 4) {
-                        readD.add((short) (value & 0xFF));
+                        readVector.canalD.add((short)(value & 0xFF));
                         //System.out.println(readD[countD]);
 //                        countD++;
                     }
@@ -103,7 +104,7 @@ public class Visu_tester {
             System.err.println("Umrel jsem na spojeni ->" + exc.getMessage());
         }
         System.out.println("Data zpravovana");
-        return {readA,readB,readC};
+        return (readVector);
     } 
     
    
