@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package graphclient;
-
 
 import java.awt.BorderLayout;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -19,11 +19,11 @@ import javax.swing.JFrame;
  * @author User
  */
 public class Visu_tester {
-    
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         //Ziskani a vykresleni dat
         InputFacade readedData = Client();
+
         Jframe_vizu panelA = new Jframe_vizu(readedData.canalA);
 //        Jframe_vizu panelB = new Jframe_vizu(readedData.canalB);
 //        Jframe_vizu panelC = new Jframe_vizu(readedData.canalC);
@@ -34,28 +34,26 @@ public class Visu_tester {
         f.setSize(800, 600);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(true);
-        
+
         //nastavovani layoutu
         BorderLayout b = new BorderLayout();
         f.setLayout(b);
-        f.add(panelA,b.CENTER);
+        f.add(panelA, b.CENTER);
 //        f.add(panelB,b.NORTH);
 //        f.add(panelC,b.SOUTH);
 //        f.add(panelD,b.SOUTH);
-        
-        
+
         f.setVisible(true);
     }
-    
+
     /**
      *
      * @return
      */
     @SuppressWarnings("empty-statement")
-    public static InputFacade Client ()
-    {
-        
-         int portNumber = 2233;
+    public static InputFacade Client() {
+
+        int portNumber = 2233;
         String hostName = "147.32.84.225";
         InputFacade readVector = new InputFacade();
 //        List <Short> readA = new ArrayList <> ();
@@ -88,23 +86,23 @@ public class Visu_tester {
                 while (true) {
                     value = dis.readByte();
                     if (count % 5 == 1) {
-                        readVector.canalA.add((short)(value & 0xFF));
+                        readVector.canalA.add((short) (value & 0xFF));
 //                        Vypis a pripocet kontrolniho countu
 //                        System.out.println(readA[countA]);
 //                        countA++;
                     }
                     if (count % 5 == 2) {
-                        readVector.canalB.add((short)(value & 0xFF));
+                        readVector.canalB.add((short) (value & 0xFF));
                         //System.out.println(readB[countB]);
 //                        countB++;
                     }
                     if (count % 5 == 3) {
-                        readVector.canalC.add((short)(value & 0xFF));
+                        readVector.canalC.add((short) (value & 0xFF));
                         //System.out.println(readC[countC]);
 //                        countC++;
                     }
                     if (count % 5 == 4) {
-                        readVector.canalD.add((short)(value & 0xFF));
+                        readVector.canalD.add((short) (value & 0xFF));
                         //System.out.println(readD[countD]);
 //                        countD++;
                     }
@@ -121,7 +119,6 @@ public class Visu_tester {
         }
         System.out.println("Data zpravovana");
         return (readVector);
-    } 
-    
-   
+    }
+
 }

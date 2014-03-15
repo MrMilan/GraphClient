@@ -26,7 +26,7 @@ public class Jframe_vizu extends JPanel {
     @Override
     public void paint(Graphics g) {
         for (int i = 0; i < pole.size()-1; i++) {
-            g.drawLine(pole.get(i).intValue(), pole.get(i).intValue(), pole.get(i+1).intValue(), pole.get(i+1).intValue());
+            g.drawLine(pole.get(i).intValue(), i, pole.get(i+1).intValue(), i+1);
         }
     }
 
