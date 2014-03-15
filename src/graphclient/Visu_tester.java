@@ -25,10 +25,10 @@ public class Visu_tester {
         InputFacade readedData = Client();
 
         Jframe_vizu panelA = new Jframe_vizu(readedData.canalA);
-//        Jframe_vizu panelB = new Jframe_vizu(readedData.canalB);
-//        Jframe_vizu panelC = new Jframe_vizu(readedData.canalC);
-//        Jframe_vizu panelD = new Jframe_vizu(readedData.canalD);
-//        
+        Jframe_vizu panelB = new Jframe_vizu(readedData.canalB);
+        Jframe_vizu panelC = new Jframe_vizu(readedData.canalC);
+        Jframe_vizu panelD = new Jframe_vizu(readedData.canalD);
+        
         //prace s okenkem
         JFrame f = new JFrame("Vykresleni dat");
         f.setSize(800, 600);
@@ -39,9 +39,9 @@ public class Visu_tester {
         BorderLayout b = new BorderLayout();
         f.setLayout(b);
         f.add(panelA, b.CENTER);
-//        f.add(panelB,b.NORTH);
-//        f.add(panelC,b.SOUTH);
-//        f.add(panelD,b.SOUTH);
+        f.add(panelB,b.CENTER);
+        f.add(panelC,b.CENTER);
+        f.add(panelD,b.CENTER);
 
         f.setVisible(true);
     }
